@@ -26,14 +26,14 @@ export function fetchCharactersList() { // Funcion que carga del WS el listado
         const state = getState()
         
         dispatch(updateCharactersList([]))
-        const fetchUrl = '/characters?apikey='+ '7fd1361f95e6c90222509dfd37278f75'
+        const fetchUrl = '/characters?ts=1&apikey=7fd1361f95e6c90222509dfd37278f75&hash=e36a5432ef4df8b2220b68479f0f13a2&limit=10'
 
         dispatch(setCharactersFetching(true))
         
         fetch(fetchUrl).then(response => {
             console.log("fetch response personajes:", response);
             dispatch(setCharactersFetching(false))
-            const list = response.records
+            const list = response && response.data && response.data.results ? response.data.results : []
             dispatch(updateCharactersList(list))
             
         })
