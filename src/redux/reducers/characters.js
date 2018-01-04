@@ -14,6 +14,19 @@ export default function reducer(state = initialState, action = {} ){
                 ...state,//HACEMOS UNA COPIA DEL STATE
                 list: action.value
             };
+        
+        case types.CHARACTERS_UPDATE_HOUSE:
+            return {
+                ...state,
+                item: action.value
+            }    
+        
+        case types.CHARACTERS_SET_FETCHING:
+            return {
+                ...state,
+                isFetching: action.value
+            }    
+
         default:
             return state;
     }

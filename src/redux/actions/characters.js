@@ -27,7 +27,7 @@ export function fetchCharactersList() { // Funcion que carga del WS el listado
         
         dispatch(updateCharactersList([]))
         const fetchUrl = '/characters?ts=1&apikey=7fd1361f95e6c90222509dfd37278f75&hash=e36a5432ef4df8b2220b68479f0f13a2&limit=10'
-
+        console.log('pasa por aqui')
         dispatch(setCharactersFetching(true))
         
         fetch(fetchUrl).then(response => {

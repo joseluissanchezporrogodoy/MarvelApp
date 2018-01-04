@@ -1,1 +1,1 @@
-export const BASE_URL = "http://gateway.marvel.com"
+export const BASE_URL = "https://gateway.marvel.com/v1/public"
