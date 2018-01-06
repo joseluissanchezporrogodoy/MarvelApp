@@ -72,9 +72,9 @@ const mapDispatchToProps = (dispatch, props) => {
         fetchCharactersList: () => {
             dispatch(CharactersActions.fetchCharactersList())
         },
-        updateSelected: (item) =>{
-            dispatch(CharactersActions.updateCharacterSelected(item))
-           
+        updateSelected: (character) =>{
+            dispatch(CharactersActions.updateCharacterSelected(character))
+            Actions.CharacterDetail({ title: character.name })
         },
         
     }

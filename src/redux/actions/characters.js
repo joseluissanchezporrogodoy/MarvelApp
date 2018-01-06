@@ -1,5 +1,7 @@
 import * as types from '../types/characters'
 import { fetch } from 'marvel_app/src/webservices/webservices'
+import * as constants from 'marvel_app/src/webservices/constants.js'
+
 
 function updateCharactersList(value) {
     return {
@@ -26,9 +28,15 @@ export function fetchCharactersList() { // Funcion que carga del WS el listado
         const state = getState()
         
         dispatch(updateCharactersList([]))
-        const fetchUrl = '/characters?ts=1&apikey=7fd1361f95e6c90222509dfd37278f75&hash=e36a5432ef4df8b2220b68479f0f13a2&limit=10'
+
         dispatch(setCharactersFetching(true))
-        
+
+        const fetchUrl =
+            constants.CHARACTERS_ENDPOINT +
+            constants.TIMESTAMP +
+            constants.PUBLIC_API +
+            constants.HASH +
+            '&limit=10'
         fetch(fetchUrl).then(response => {
             console.log("fetch response personajes:", response);
             dispatch(setCharactersFetching(false))

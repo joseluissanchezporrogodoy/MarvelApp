@@ -11,6 +11,7 @@ import * as webservices from 'marvel_app/src/webservices/webservices'
 
 /*********************** COMPONENTS ****************************************/
 import CharactersList from 'marvel_app/src/sections/characters/CharactersList';
+import CharacterDetail from 'marvel_app/src/sections/characters/CharacterDetail';
 /*************************************************************/
 
 /*********************** REDUX ****************************************/
@@ -45,6 +46,12 @@ render() {
                   navigationBarStyle={styles.navBar}
                   navBarButtonColor = {'white'}
              />
+              <Scene
+                  key={'CharacterDetail'}
+                  component={CharacterDetail}
+                  navigationBarStyle={styles.navBar}
+                  navBarButtonColor={'red'}
+              />
           </Scene>
       </Router>
       </Provider>
