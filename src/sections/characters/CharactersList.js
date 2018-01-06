@@ -72,9 +72,9 @@ const mapDispatchToProps = (dispatch, props) => {
         fetchCharactersList: () => {
             dispatch(CharactersActions.fetchCharactersList())
         },
-        updateSelected: (house) =>{
-            dispatch(CharactersActions.updateCharacterselected(house))
-            Actions.CharactersList({title: house.nombre})
+        updateSelected: (item) =>{
+            dispatch(CharactersActions.updateCharacterSelected(item))
+           
         },
         
     }
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
         paddingVertical: 20,
-        paddingTop:60,
+        paddingTop:0,
     }
 })
