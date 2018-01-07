@@ -6,7 +6,7 @@ import {Actions} from 'react-native-router-flux'
 //Redux
 import { connect } from 'react-redux'
 import * as CharactersActions from 'marvel_app/src/redux/actions/characters'
-
+import Spinner from 'react-native-spinkit';
 
 class CharactersList extends Component {
 
@@ -27,11 +27,9 @@ class CharactersList extends Component {
         this.props.updateSelected(character)
     }
     renderFooter(){
-        return <ActivityIndicator
-                         animating= {this.props.isFetching} 
-                         size="large" 
-                         color = "white"
-                         />
+        return (
+            <Spinner isVisible={this.state.isFetching}  size={50}  type={'Pulse'} color= {'black'} />
+        )
     }
 
 
