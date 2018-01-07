@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, StatusBar,TouchableOpacity,Text } from 'react-native';
 import { Actions, Scene, Router } from 'react-native-router-flux';
 import * as webservices from 'marvel_app/src/webservices/webservices'
-
+import {  Colors } from 'marvel_app/src/commons'
 /*********************** COMPONENTS ****************************************/
 import CharactersList from 'marvel_app/src/sections/characters/CharactersList';
 import CharacterDetail from 'marvel_app/src/sections/characters/CharacterDetail';
@@ -51,22 +51,23 @@ render() {
                   key={ 'CharactersList'}
                   component ={ CharactersList}
                   navigationBarStyle={styles.navBar}
-                  navBarButtonColor = {'white'}
+                  navBarButtonColor = {Colors.white}
                   renderRightButton = {this.renderAddCharacterButton()}
+                  title={'MARVEL APP'}
              />
               <Scene
                   key={'CharacterDetail'}
                   component={CharacterDetail}
                   navigationBarStyle={styles.navBar}
-                  navBarButtonColor={'red'}
+                  navBarButtonColor={Colors.white}
               />
               <Scene
-                            key={ 'CharacterNew' }
-                            component={ CharacterNew }
-                            navigationBarStyle={styles.navBar}
-                            navBarButtonColor={'white'}
-                            title={'Añadir'}
-                    />
+                key={ 'CharacterNew' }
+                component={ CharacterNew }
+                navigationBarStyle={styles.navBar}
+                navBarButtonColor={Colors.white}
+                title={'Añadir'}
+            />
           </Scene>
       </Router>
       </Provider>
@@ -76,6 +77,17 @@ render() {
 
 const styles = StyleSheet.create({
     navBar: {
-      backgroundColor: 'green',
+      backgroundColor: Colors.black,
     },
+    addButtonText: {
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: '600',
+    },
+
+    addButton: {
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
