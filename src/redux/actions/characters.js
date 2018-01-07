@@ -2,7 +2,7 @@ import * as types from '../types/characters'
 import { fetch } from 'marvel_app/src/webservices/webservices'
 import * as constants from 'marvel_app/src/webservices/constants.js'
 import qs from 'qs'
-
+import {Actions} from 'react-native-router-flux'
 function updateCharactersList(value,total) {
     return {
         type: types.CHARACTERS_UPDATE_LIST,
@@ -46,8 +46,6 @@ export function fetchCharactersList() { // Funcion que carga del WS el listado
     return (dispatch, getState) => {
     
         const state = getState()
-        
-//dispatch(updateCharactersList([]))
         const list = state.characters.list
         const offset = state.characters.offset
         const limit = 10
@@ -81,3 +79,18 @@ export function fetchCharactersList() { // Funcion que carga del WS el listado
        
     }
 }
+export function postCharacter(character) {
+    
+    return (dispatch, getState) => {
+        
+        
+       /// TODO: HACER un pop
+        //dispatch(setCharactersFetching(true))
+        const state = getState()
+        console.log("poscahcarfgesgsw",state)
+        const list = state.characters.list
+        const newList = [character,...list]
+        dispatch(updateCharactersList(newList,state.characters.total))
+        Actions.pop()
+    }
+} 

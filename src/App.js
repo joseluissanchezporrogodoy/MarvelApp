@@ -5,13 +5,14 @@
  */
 
 import React, { Component } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar,TouchableOpacity,Text } from 'react-native';
 import { Actions, Scene, Router } from 'react-native-router-flux';
 import * as webservices from 'marvel_app/src/webservices/webservices'
 
 /*********************** COMPONENTS ****************************************/
 import CharactersList from 'marvel_app/src/sections/characters/CharactersList';
 import CharacterDetail from 'marvel_app/src/sections/characters/CharacterDetail';
+import CharacterNew from 'marvel_app/src/sections/characters/CharacterNew'
 /*************************************************************/
 
 /*********************** REDUX ****************************************/
@@ -33,7 +34,13 @@ export default class App extends Component{
     webservices.configureAxios()
     StatusBar.setBarStyle('light-content') // Solo para ios
 }
-
+renderAddCharacterButton() {
+    return (
+        <TouchableOpacity style={styles.addButton} onPress={ () => Actions.CharacterNew() } >
+            <Text style={styles.addButtonText}>{'Añadir'}</Text>
+        </TouchableOpacity>
+    )
+}
 render() {
 
   return (
@@ -45,6 +52,7 @@ render() {
                   component ={ CharactersList}
                   navigationBarStyle={styles.navBar}
                   navBarButtonColor = {'white'}
+                  renderRightButton = {this.renderAddCharacterButton()}
              />
               <Scene
                   key={'CharacterDetail'}
@@ -52,6 +60,13 @@ render() {
                   navigationBarStyle={styles.navBar}
                   navBarButtonColor={'red'}
               />
+              <Scene
+                            key={ 'CharacterNew' }
+                            component={ CharacterNew }
+                            navigationBarStyle={styles.navBar}
+                            navBarButtonColor={'white'}
+                            title={'Añadir'}
+                    />
           </Scene>
       </Router>
       </Provider>
