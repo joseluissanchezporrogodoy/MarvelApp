@@ -28,7 +28,9 @@ class CharactersList extends Component {
     }
     renderFooter(){
         return (
+            <View style={styles.containerSpinner}>
             <Spinner isVisible={this.state.isFetching}  size={50}  type={'Pulse'} color= {'black'} />
+            </View>
         )
     }
 
@@ -101,5 +103,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingVertical: 20,
         paddingTop:0,
-    }
+    },
+    containerSpinner: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+      },
 })
