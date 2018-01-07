@@ -55,7 +55,7 @@ class CharacterNew extends Component {
                 name: this.state.name,
                 description: this.state.description,
                 image: this.state.image ? { uri: this.state.image.uri } : null,
-               
+            
             }
             console.log('characterData',characterData)
             this.props.postCharacter(characterData)  

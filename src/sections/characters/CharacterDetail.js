@@ -9,9 +9,12 @@ class CharacterDetail extends Component {
 
 
 
-      const image = character.thumbnail && !character.thumbnail.path.endsWith('image_not_available') ?
+      var image = character.thumbnail && !character.thumbnail.path.endsWith('image_not_available') ?
           { uri: `${character.thumbnail.path.replace('http', 'https')}/landscape_large.${character.thumbnail.extension}` } :
           require('marvel_app/src/resources/unknown.jpg')
+      if(!character.thumbnail){
+        image = character.image ? character.image :require('marvel_app/src/resources/unknown.jpg')
+      }
 
       const description = character && character.description ? character.description : 'No Description'
       const comics = character && character.comics && character.comics.items ? character.comics.items : null
