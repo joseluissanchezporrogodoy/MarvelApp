@@ -117,7 +117,7 @@ class CharacterNew extends Component {
                         value={this.state.name}
                         error={this.state.nameError}
                         label={'Nombre:'}
-                        placeholder={'Eddard Stark'}
+                        placeholder={'Torrente'}
                     />
                 </View>
 
