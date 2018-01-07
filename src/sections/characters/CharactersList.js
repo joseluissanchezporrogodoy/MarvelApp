@@ -12,14 +12,16 @@ class CharactersList extends Component {
 
     constructor(props) {
         super(props)
+        this.renderItem = this.renderItem.bind(this)
+        this.onEndReached = this.onEndReached.bind(this)
         this.state = {
-            list: [],
+            //list: [],
             selected: null,
-
         }
+
     }
     componentWillMount() {
-        this.props.fetchCharactersList()
+        this.props.initCharactersList()
     }
     onSelect(character) {
         this.props.updateSelected(character)
@@ -41,6 +43,13 @@ class CharactersList extends Component {
             />
         )
     }
+    onEndReached(){
+        console.log("On END REACHED")
+        if(this.props.list.length < this.props.total && !this.props.isFetching){
+            let newOffset = this.props.offset + 10
+            this.props.fetchCharactersList(newOffset)
+        }
+    }
     render() {
        
       
@@ -54,6 +63,7 @@ class CharactersList extends Component {
                     keyExtractor={(item, index) => item.id}
                     extraData={this.state}
                     numColumns={1}
+                    onEndReached ={this.onEndReached}
                 />
             </View>
         )
@@ -65,11 +75,17 @@ const mapStateToProps = (state) => {
         list: state.characters.list,
         selected: state.characters.item,
         isFetching: state.characters.isFetching,
+        offset: state.characters.offset,
+        total: state.characters.total,
     }
 }
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchCharactersList: () => {
+        initCharactersList: ()=>{
+            dispatch(CharactersActions.initCharactersList())
+        },
+        fetchCharactersList: (offset) => {
+            dispatch(CharactersActions.updateCharactersListOffset(offset))
             dispatch(CharactersActions.fetchCharactersList())
         },
         updateSelected: (character) =>{

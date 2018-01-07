@@ -1,12 +1,32 @@
 import * as types from '../types/characters'
 import { fetch } from 'marvel_app/src/webservices/webservices'
 import * as constants from 'marvel_app/src/webservices/constants.js'
+import qs from 'qs'
 
-
-function updateCharactersList(value) {
+function updateCharactersList(value,total) {
     return {
         type: types.CHARACTERS_UPDATE_LIST,
         value: value,
+        total: total,
+    }
+}
+export function updateCharactersListOffset(value){
+    return {
+        type: types.CHARACTERS_UPDATE_LIST_OFFSET,
+        value
+    }
+}
+export function initCharactersList(){
+    return (dispatch,getState)=>{
+        // Reset characters list and set total to 0
+        dispatch(updateCharactersList([],0))
+
+        // Set offset to 0
+        dispatch(updateCharactersListOffset(0))
+
+        // Fetch list
+        dispatch(fetchCharactersList())
+
     }
 }
 function setCharactersFetching(value){
@@ -18,7 +38,7 @@ function setCharactersFetching(value){
 export function updateCharacterSelected(value){
     console.log("update selected: value:",value)
     return{
-        type: types.CHARACTERS_UPDATE_HOUSE,
+        type: types.CHARACTERS_UPDATE_CHARACTER,
         value: value,
     }
 }
@@ -27,7 +47,14 @@ export function fetchCharactersList() { // Funcion que carga del WS el listado
     
         const state = getState()
         
-        dispatch(updateCharactersList([]))
+//dispatch(updateCharactersList([]))
+        const list = state.characters.list
+        const offset = state.characters.offset
+        const limit = 10
+        const filters = {
+            offset: offset,
+            limit: limit
+        }
 
         dispatch(setCharactersFetching(true))
 
@@ -36,12 +63,15 @@ export function fetchCharactersList() { // Funcion que carga del WS el listado
             constants.TIMESTAMP +
             constants.PUBLIC_API +
             constants.HASH +
-            '&limit=10'
+            qs.stringify(filters)
+        console.log('URL',fetchUrl)
         fetch(fetchUrl).then(response => {
             console.log("fetch response personajes:", response);
             dispatch(setCharactersFetching(false))
-            const list = response && response.data && response.data.results ? response.data.results : []
-            dispatch(updateCharactersList(list))
+            const newList = response && response.data && response.data.results ? [...list, ...response.data.results] : []
+            console.log("New list length: ", newList.length)
+            console.log("total",response.data.total)
+            dispatch(updateCharactersList(newList,response.data.total))
             
         })
         .catch((error) => {
